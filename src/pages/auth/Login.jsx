@@ -11,10 +11,10 @@ const Login = () => {
     e.preventDefault();
     try {
       await handleAuth("login");
-      navigate("/products", { state: { showSuccess: true } });
     } catch (error) {
-      toast.error("Login failed. Please check your credentials.", error, {
+      toast.error(error.message, {
         position: "top-center",
+        autoClose: 2500
       });
     }
   };

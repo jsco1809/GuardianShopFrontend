@@ -46,7 +46,7 @@ const Navbar = () => {
       </div>
       <div className="flex-row p-4">
         <div className="p-4">
-          <ol className="flex gap-2 md:gap-14 bg-tertiary w-[274px] md:w-[426px] h-[48px] lg:w-[1200px] lg:gap-44 justify-center items-center place-content-center rounded-md text-white mb-5">
+          <ol className="flex gap-2 md:gap-14 bg-tertiary w-[274px] md:w-full h-[48px] lg:w-[1200px] lg:gap-44 justify-center items-center place-content-center rounded-md text-white mb-5">
             <li>
               <Link to="/">Home</Link>
             </li>

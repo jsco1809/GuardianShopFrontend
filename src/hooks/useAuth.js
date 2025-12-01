@@ -45,7 +45,11 @@ const useAuth = () => {
             }
             setMessage(response.data.message || 'Success!');
         } catch (error) {
-            setMessage(error.response?.data?.message || 'Invalid Username or Password');
+            const errorMsg =
+            error.response?.data?.message ||
+            "Incorrect password. Please try again.";
+            setMessage(errorMsg);
+            throw new Error(errorMsg);
         }
     };
 
