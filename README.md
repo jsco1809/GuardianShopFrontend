@@ -159,3 +159,7 @@ Proyecto personal – 2024.
 ## 📄 Licencia
 
 Este proyecto es de uso académico y personal.  
+
+## 👤 Autores
+Jefferson Andrés Moreno Pedraza  
+Johan Sebastián Cárdenas Orozco  
