@@ -9,7 +9,8 @@ import useCart from "../hooks/useCart";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { cartItems, validateCart } = useCart();
+  const { validateCart } = useCart();
+  const cartItems = useSelector((state) => state.cart.items);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -37,6 +38,9 @@ const Navbar = () => {
     }
   };
 
+  const cartContent = cartItems.content || [];
+  const totalItems = cartContent.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
     <div className="top-0 relative justify-center place-content-center items-center h-134px flex">
       <div className="hidden md:flex md:m-5">
@@ -62,13 +66,11 @@ const Navbar = () => {
             <li className="relative">
               <button onClick={handleCartClick}>
                 <img src={carBuy} alt="Ver carrito" />
-                {isAuthenticated &&
-                  Array.isArray(cartItems) &&
-                  cartItems.length > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full px-1 text-xs">
-                      {cartItems.length}
-                    </span>
-                  )}
+                {isAuthenticated && totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                    {totalItems}
+                  </span>
+                )}
               </button>
             </li>
           </ol>

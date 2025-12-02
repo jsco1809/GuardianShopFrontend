@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { updateCart } from '../redux/cartSlice';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import axios from 'axios';
-import { Global } from '../helpers/Global';
-import { jwtDecode } from 'jwt-decode';
+import { useDispatch, useSelector } from "react-redux";
+import { updateCart } from "../redux/cartSlice";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import { Global } from "../helpers/Global";
+import { jwtDecode } from "jwt-decode";
 
 const useCart = () => {
   const dispatch = useDispatch();
@@ -103,47 +103,35 @@ const useCart = () => {
 
       const base64CartPayload = btoa(JSON.stringify(cartPayload));
 
-      const response = await axios.post(
-        Global.url + "carts/addToCart",
-        base64CartPayload,
-        {
-          headers: {
-            "Content-Type": "text/plain",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.post(Global.url + "carts/addToCart", base64CartPayload, {
+        headers: {
+          "Content-Type": "text/plain",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-      const base64Data = response.data;
-      if (base64Data && base64Data.length % 4 === 0) {
-        const jsonString = atob(base64Data);
-        const data = JSON.parse(jsonString);
-        dispatch(updateCart(data.cartItems));
-      } else {
-        console.error("Invalid Base64 string:", base64Data);
-        setError("Invalid data format from server");
-      }
+      await validateCart();
     } catch (error) {
       console.error("Error en addToCart:", error);
       setError("Error al agregar el producto al carrito");
     }
   };
 
-  const validateCart = async (currentPage = 1) => { 
+  const validateCart = async (currentPage = 1) => {
     const token = localStorage.getItem("authToken");
-  
+
     if (!token || !isTokenValid(token)) {
       navigate("/login");
       console.error("Token no disponible o inválido");
       return { success: false, items: [] };
     }
-  
+
     try {
       const decodedToken = jwtDecode(token);
       const userId = parseInt(decodedToken.sub);
       const usernamePayload = { id: userId };
       const base64UsernamePayload = btoa(JSON.stringify(usernamePayload));
-  
+
       const userNameResponse = await fetch(Global.url + "users/list/id", {
         method: "POST",
         headers: {
@@ -152,26 +140,34 @@ const useCart = () => {
         },
         body: base64UsernamePayload,
       });
-  
+
       if (!userNameResponse.ok) {
-        throw new Error(`Error en la respuesta del servidor: ${userNameResponse.status}`);
+        throw new Error(
+          `Error en la respuesta del servidor: ${userNameResponse.status}`
+        );
       }
-  
+
       const userNameBase64Data = await userNameResponse.text();
       const userNameData = JSON.parse(atob(userNameBase64Data));
       const { userName } = userNameData.data;
-  
+
       const cartId = await checkIfUserHasCart(userId);
       if (cartId === 0) {
-        console.error("No se encontró el carrito del usuario.");
-        return { success: false, items: [] };
+        console.warn("No existe carrito → limpiando Redux");
+        dispatch(
+          updateCart({
+            content: [],
+            totalElements: 0,
+          })
+        );
+        return { success: true, items: [] };
       }
-  
+
       const cartValidationPayload = {
         cartId,
         createUser: userName,
       };
-  
+
       const cartValidationResponse = await fetch(
         Global.url + "order-items/validate/cart",
         {
@@ -183,42 +179,52 @@ const useCart = () => {
           body: JSON.stringify(cartValidationPayload),
         }
       );
-  
+
       if (!cartValidationResponse.ok) {
-        throw new Error(`Error en la respuesta del servidor: ${cartValidationResponse.status}`);
+        throw new Error(
+          `Error en la respuesta del servidor: ${cartValidationResponse.status}`
+        );
       }
-  
+
       const base64Data = await cartValidationResponse.text();
       const jsonString = atob(base64Data);
       const data = JSON.parse(jsonString);
-  
+
       if (data.data === true) {
         const payload = {
           cartId,
           page: currentPage,
           size: 10,
         };
-  
-        const orderItemsResponse = await fetch(Global.url + "order-items/list/cart", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(payload),
-        });
+
+        const orderItemsResponse = await fetch(
+          Global.url + "order-items/list/cart",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(payload),
+          }
+        );
         if (!orderItemsResponse.ok) {
-          throw new Error(`Error en la respuesta del servidor: ${orderItemsResponse.status}`);
+          throw new Error(
+            `Error en la respuesta del servidor: ${orderItemsResponse.status}`
+          );
         }
-  
+
         const orderItemsBase64Data = await orderItemsResponse.text();
         const jsonString = atob(orderItemsBase64Data);
         const dataString = JSON.parse(jsonString);
-        if (dataString.data) {
-          const items = dataString.data;
-          dispatch(updateCart(items));
-          return { success: true, items };
-        }
+        const items = dataString?.data || { content: [], totalElements: 0 };
+        dispatch(
+          updateCart({
+            content: Array.isArray(items.content) ? items.content : [],
+            totalElements: items.totalElements || 0,
+          })
+        );
+        return { success: true, items };
       }
     } catch (error) {
       console.error("Error en validateCart:", error);
@@ -228,13 +234,13 @@ const useCart = () => {
 
   const updateItemQuantity = async (item) => {
     const token = localStorage.getItem("authToken");
-  
+
     if (!token || !isTokenValid(token)) {
       navigate("/login");
       console.error("Token no disponible o inválido");
       return;
     }
-  
+
     try {
       const orderItemDto = {
         id: item.id,
@@ -245,9 +251,9 @@ const useCart = () => {
         price: item.price,
         updateUser: item.userName,
       };
-  
+
       const base64OrderItemDto = btoa(JSON.stringify(orderItemDto));
-  
+
       const response = await axios.post(
         Global.url + "order-items/updateRecord",
         base64OrderItemDto,
@@ -258,20 +264,11 @@ const useCart = () => {
           },
         }
       );
-  
+
       const base64Data = response.data;
       if (base64Data && base64Data.length % 4 === 0) {
-        const jsonString = atob(base64Data);
-        const updatedItem = JSON.parse(jsonString);
-  
-        const updatedItems = cartItems.content.map((cartItem) =>
-          cartItem.id === updatedItem.data.id
-            ? { ...cartItem, quantity: updatedItem.data.quantity }
-            : cartItem
-        ).filter((cartItem) => cartItem.quantity > 0);
-        
-        
-        dispatch(updateCart({ ...cartItems, content: updatedItems }));
+        const { items } = await validateCart();
+        return items;
       } else {
         console.error("Invalid Base64 string:", base64Data);
         setError("Invalid data format from server");
@@ -282,11 +279,40 @@ const useCart = () => {
     }
   };
 
+  const removeItem = async (item) => {
+    const token = localStorage.getItem("authToken");
+    if (!token || !isTokenValid(token)) {
+      navigate("/login");
+      console.error("Token no disponible o inválido");
+      return;
+    }
+
+    try {
+      const cartDto = {
+        id: item.cartId,
+        items: [{ id: item.id }],
+        updateUser: item.userName,
+      };
+      const base64CartDto = btoa(JSON.stringify(cartDto));
+      await axios.post(Global.url + "carts/removeItem", base64CartDto, {
+        headers: {
+          "Content-Type": "text/plain",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      await validateCart();
+    } catch (error) {
+      console.error("Error removing item:", error);
+      setError("Error al eliminar el ítem del carrito");
+    }
+  };
+
   return {
     cartItems,
     addToCart: addToCartHandler,
     validateCart,
     updateItemQuantity,
+    removeItem,
     error,
   };
 };

@@ -9,7 +9,7 @@ const ITEMS_PER_PAGE = 10;
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { cartItems, error, validateCart, updateItemQuantity } = useCart();
+  const { cartItems, error, validateCart, updateItemQuantity, removeItem} = useCart();
   const { products } = useSelector((state) => state.products);
 
   const [loading, setLoading] = useState(false);
@@ -53,7 +53,7 @@ const Cart = () => {
 
   const handleQuantityChange = (item, newQuantity) => {
     if (newQuantity <= 0) {
-      updateItemQuantity({ ...item, quantity: 0 });
+      removeItem(item);
       setQuantityMap(prevMap => {
         const newMap = { ...prevMap };
         delete newMap[item.productId];
@@ -71,7 +71,7 @@ const Cart = () => {
   };
 
   const handleRemoveItem = (item) => {
-    updateItemQuantity({ ...item, quantity: 0 });
+    removeItem(item); 
     setQuantityMap(prevMap => {
       const newMap = { ...prevMap };
       delete newMap[item.productId];

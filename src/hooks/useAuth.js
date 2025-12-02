@@ -34,6 +34,7 @@ const useAuth = () => {
                     email: formData.email,
                     password: formData.password,
                 });
+                console.log(formData);
                 localStorage.setItem('authToken', response.data.jwt);
                 dispatch(login()); // Actualizar el estado de Redux
                 navigate('/products', { state: { showSuccess: true } });
