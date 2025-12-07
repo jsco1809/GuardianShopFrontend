@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import useRegister from '../../hooks/useRegister';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import useRegister from "../../hooks/useRegister";
 
 const Register = () => {
   const {
@@ -20,20 +20,20 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     await handleRegister();
   };
 
   useEffect(() => {
     if (successMessage) {
       setShowSuccessMessage(true);
-      toast.success('User successfully registered! Redirecting to login..', {
-        position: 'top-center',
+      toast.success("User successfully registered! Redirecting to login..", {
+        position: "top-center",
         autoClose: 3000,
       });
 
       const timer = setTimeout(() => {
-        navigate('/login');
+        navigate("/login");
       }, 3000);
 
       return () => clearTimeout(timer);
@@ -41,18 +41,21 @@ const Register = () => {
   }, [successMessage, navigate]);
 
   return (
-    <div>
+    <div className="dark:bg-darkBg">
       <ToastContainer />
-      <div className='container mx-auto mt-5 md:justify-center xl:top-0 md:top-2 sm:top-10 m-8 anyBox'>
-        <form onSubmit={handleSubmit} className='container md:w-[518px] md:h-[684px] w-[306px] h-[464px] bg-fourty shadow-2xl rounded-sm text-sm md:text-xl anyBox'>
-          <div className='anyBox flex-row w-[193px] h-[252px] mx-10 md:ml-18 p-5'>
+      <div className="w-full flex justify-center py-10">
+        <form
+          onSubmit={handleSubmit}
+          className="container md:w-[518px] w-[306px] bg-fourty shadow-2xl rounded-sm text-sm md:text-xl p-8 flex flex-col gap-4"
+        >
+          <div className="flex flex-col gap-4 w-full">
             <input
               type="text"
               name="userName"
               placeholder="Username"
               value={formData.userName}
               onChange={handleInputChange}
-              className='input-primary'
+              className="input-primary  bg-white dark:bg-darkBg dark:text-white placeholder:text-black dark:placeholder:text-white"
               required
             />
 
@@ -62,7 +65,7 @@ const Register = () => {
               placeholder="First Name"
               value={formData.name}
               onChange={handleInputChange}
-              className='input-primary'
+              className="input-primary  bg-white dark:bg-darkBg dark:text-white placeholder:text-black dark:placeholder:text-white"
               required
             />
 
@@ -72,7 +75,7 @@ const Register = () => {
               placeholder="Last Name"
               value={formData.lastName}
               onChange={handleInputChange}
-              className='input-primary'
+              className="input-primary  bg-white dark:bg-darkBg dark:text-white placeholder:text-black dark:placeholder:text-white"
               required
             />
 
@@ -82,7 +85,7 @@ const Register = () => {
               placeholder="Email"
               value={formData.email}
               onChange={handleInputChange}
-              className='input-primary'
+              className="input-primary  bg-white dark:bg-darkBg dark:text-white placeholder:text-black dark:placeholder:text-white"
               required
             />
 
@@ -93,7 +96,7 @@ const Register = () => {
               value={formData.newPassword}
               onChange={handleInputChange}
               onBlur={validatePasswords}
-              className='input-primary'
+              className="input-primary  bg-white dark:bg-darkBg dark:text-white placeholder:text-black dark:placeholder:text-white"
               required
             />
 
@@ -104,30 +107,34 @@ const Register = () => {
               value={formData.confirmPassword}
               onChange={handleInputChange}
               onBlur={validatePasswords}
-              className='input-primary'
+              className="input-primary  bg-white dark:bg-darkBg dark:text-white placeholder:text-black dark:placeholder:text-white"
               required
             />
-            {!passwordsMatch && <p style={{ color: 'red' }}>Passwords do not match!</p>}
+            {!passwordsMatch && (
+              <p style={{ color: "red" }}>Passwords do not match!</p>
+            )}
 
             <button
-              type='submit'
-              className='w-[193px] h-[43px] md:w-[360px] md:h-[48px] btn-primary mb-5'
+              type="submit"
+              className="w-[193px] h-[43px] md:w-[360px] md:h-[48px] btn-fourty mb-5 dark:text-white placeholder:text-black dark:placeholder:text-white"
             >
-              {successMessage ? 'Enviado' : 'Enviar'}
+              {successMessage ? "Enviado" : "Enviar"}
             </button>
 
             {errorMessage && <div className="text-red-500">{errorMessage}</div>}
-            {showSuccessMessage && <div className="text-green-500">Usuario registrado con éxito!</div>}
+            {showSuccessMessage && (
+              <div className="text-green-500">
+                Usuario registrado con éxito!
+              </div>
+            )}
           </div>
 
-          <footer className='p-2 mx-10 bottom-0'>
-
-          </footer>
+          <footer className="p-2 mx-10 bottom-0"></footer>
         </form>
         {message && <p>{message}</p>}
       </div>
     </div>
   );
-}
+};
 
 export default Register;

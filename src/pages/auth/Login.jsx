@@ -20,7 +20,7 @@ const Login = () => {
   
 
   return (
-    <div className="container mx-auto mt-5 md:justify-center xl:top-0 md:top-2 sm:top-10 m-8 anyBox">
+    <div className="w-full h-screen bg-gray-100 dark:bg-darkBg flex justify-center items-start p-8 anyBox relative">
       <ToastContainer /> 
       <form
         onSubmit={handleSubmit}
@@ -29,14 +29,14 @@ const Login = () => {
         <div className="p-5 mt-0">
           <button className="btn-secondary mb-2">Compra Aquí...</button>
         </div>
-        <div className="anyBox flex-row w-[193px] h-[252px] mx-10 md:ml-18 p-5">
+        <div className="anyBox flex-col w-[193px] h-[252px] mx-10 md:ml-18 p-5">
           <input
             type="email"
             name="email"
             placeholder="Email"
             value={formData.email}
             onChange={handleInputChange}
-            className="input-primary"
+            className="input-primary bg-white dark:bg-darkBg dark:text-white placeholder:text-black dark:placeholder:text-white"
             required
           />
           <input
@@ -45,12 +45,12 @@ const Login = () => {
             placeholder="Password"
             value={formData.password}
             onChange={handleInputChange}
-            className="input-primary"
+            className='input-primary bg-white dark:bg-darkBg dark:text-white placeholder:text-black dark:placeholder:text-white'
             required
           />
           <button
             type="submit"
-            className="w-[193px] h-[43px] md:w-[360px] md:h-[48px] btn-primary"
+            className="w-[193px] h-[43px] md:w-[360px] md:h-[48px] btn-fourty text-black dark:text-white"
           >
             Login
           </button>

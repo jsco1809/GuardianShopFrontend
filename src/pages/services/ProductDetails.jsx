@@ -18,7 +18,7 @@ const ProductDetails = () => {
   if (!product) return <p>Producto no encontrado</p>;
 
   return (
-    <div className='flex-wrap md:flex-row lg:flex-wrap anyBox justify-center md:justify-start md:place-content-start hidden md:flex'>
+    <div className='flex-wrap md:flex-row lg:flex-wrap anyBox justify-center md:justify-start md:place-content-start hidden md:flex bg-gray-100'>
 
       <div className='w-[330px] h-[619px] lg:w-[483px] lg:h-[684px] justify-start place-content-start mr-5 mb-5'>
         <div className='bg-fourty w-[330px] h-[619px] lg:w-[425px] lg:h-[621px] md:ml-5 lg:ml-10' style={{backgroundImage: `url(${bgPromo})`}}>
@@ -36,7 +36,7 @@ const ProductDetails = () => {
               Precio: ${product.salePrice ? product.salePrice : 'No disponible'}
             </p>
             <div className='flex flex-wrap justify-between place-content-start p-5'>
-              <button className="btn btn-primary p-2 mb-5" onClick={() => handleAddToCart(product)}>
+              <button className="btn btn-fourty p-2 mb-5" onClick={() => handleAddToCart(product)}>
                 Agregar al carrito
               </button>
             </div>
@@ -60,8 +60,8 @@ const ProductDetails = () => {
                   Precio: ${product.salePrice ? product.salePrice : 'No disponible'}
                 </p>
                 <div className='text-sm flex flex-wrap space-x-1 p-1'>
-                  <Link className='btn-primary p-2 mb-5' to={`/productDetails/${product.id}`}>Details...</Link>
-                  <button className="btn btn-primary p-2 mb-5" onClick={() => handleAddToCart(product)}>
+                  <Link className='btn-fourty p-2 mb-5' to={`/productDetails/${product.id}`}>Details...</Link>
+                  <button className="btn btn-fourty p-2 mb-5" onClick={() => handleAddToCart(product)}>
                     Agregar al carrito
                   </button>
                 </div>

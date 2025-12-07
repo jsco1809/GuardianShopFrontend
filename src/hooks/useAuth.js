@@ -1,72 +1,57 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { login, logout } from '../redux/authSlice';
-import { Global } from '../helpers/Global';
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login, logout } from "../redux/authSlice";
+import { Global } from "../helpers/Global";
+import { jwtDecode } from "jwt-decode";
 
 const useAuth = () => {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    });
-    const [message, setMessage] = useState('');
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            dispatch(login()); 
-        }
-    }, [dispatch]);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({ ...prevData, [name]: value }));
-    };
+  const handleAuth = async (mode) => {
+    try {
+      if (mode === "login") {
 
-    const handleAuth = async (mode) => {
-        try {
-            let response;
-            if (mode === 'login') {
-                response = await axios.post(Global.url + "auth/login", {
-                    email: formData.email,
-                    password: formData.password,
-                });
-                console.log(formData);
-                localStorage.setItem('authToken', response.data.jwt);
-                dispatch(login()); // Actualizar el estado de Redux
-                navigate('/products', { state: { showSuccess: true } });
-            } else if (mode === 'register') {
-                response = await axios.post(Global.url + "auth/register", {
-                    ...formData,
-                });
-                navigate('/register');
-            }
-            setMessage(response.data.message || 'Success!');
-        } catch (error) {
-            const errorMsg =
-            error.response?.data?.message ||
-            "Incorrect password. Please try again.";
-            setMessage(errorMsg);
-            throw new Error(errorMsg);
-        }
-    };
+        const response = await axios.post(Global.url + "auth/login", {
+          email: formData.email,
+          password: formData.password,
+        });
 
-    const handleLogout = () => {
-        localStorage.removeItem('authToken');
-        dispatch(logout()); // Actualizar el estado de Redux
-        navigate('/login');
-    };
+        const token = response.data.jwt;
 
-    return [
-        formData,
-        message,
-        handleInputChange,
-        handleAuth,
-        handleLogout,
-    ];
+        const decoded = jwtDecode(token);
+        const role = decoded.roles?.[0] || "USER";
+
+        dispatch(login({ role, token }));
+
+        navigate("/products", { state: { showSuccess: true } });
+      }
+    } catch (error) {
+      const errorMsg =
+        error.response?.data?.message || "Incorrect password. Please try again.";
+      setMessage(errorMsg);
+      throw new Error(errorMsg);
+    }
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
+
+  return [formData, message, handleInputChange, handleAuth, handleLogout];
 };
 
 export default useAuth;

@@ -73,7 +73,7 @@ const Products = () => {
   };
 
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full bg-gray-100 dark:bg-darkBg">
       <ToastContainer />
       <div
         className="bg-fourty flex items-center justify-center mb-4 w-full max-w-screen-lg h-64"
@@ -84,7 +84,8 @@ const Products = () => {
         }}
       >
         <h1 className="text-2xl md:text-4xl lg:text-5xl text-center">
-          Esta es la promo de <span className="font-extrabold italic">hoy</span>.
+          Esta es la promo de <span className="font-extrabold italic">hoy</span>
+          .
         </h1>
       </div>
 
@@ -99,18 +100,23 @@ const Products = () => {
               key={service.id}
               className="bg-fourty/50 p-4 flex flex-col items-center shadow rounded-lg"
             >
-              <img
-                src={service.imageUrl}
-                alt={service.name}
-                className="w-full h-49 object-cover mb-4 rounded"
-              />
-              <h1 className="font-bold text-center text-sm sm:text-base md:text-lg">
+              <div className="w-full mb-4 rounded bg-white dark:bg-black overflow-hidden">
+  <img
+    src={service.imageUrl}
+    alt={service.name}
+    className="w-full object-cover rounded"
+  />
+</div>
+
+              <h1 className="font-bold text-center text-sm sm:text-base md:text-lg text-black dark:text-darkText">
                 {service.name}
               </h1>
-              <p className="font-semibold text-center text-xs sm:text-sm md:text-base">
+              <p className="font-semibold text-center text-xs sm:text-sm md:text-base text-black dark:text-darkText">
                 {service.categoryId === 3
                   ? "Precio: Ver en Carrito"
-                  : `Precio: $${service.salePrice ? service.salePrice : "No disponible"}`}
+                  : `Precio: $${
+                      service.salePrice ? service.salePrice : "No disponible"
+                    }`}
               </p>
               <div className="w-full mt-2">
                 <label
@@ -123,7 +129,7 @@ const Products = () => {
                 </label>
                 <select
                   id={`size-select-${service.id}`}
-                  className="w-full p-2 border rounded text-xs sm:text-sm"
+                  className="w-full p-2 border rounded text-xs sm:text-sm bg-white text-darkBg dark:bg-darkBg dark:text-white"
                   value={selectedSizes[service.id] || ""}
                   onChange={(e) => handleSizeChange(service.id, e.target.value)}
                 >
@@ -136,7 +142,11 @@ const Products = () => {
                       </option>
                     ))
                   ) : (
-                    <option value="" disabled>
+                    <option
+                      value=""
+                      disabled
+                      className="text-black dark:text-darkText"
+                    >
                       No hay disponibles
                     </option>
                   )}
@@ -144,7 +154,7 @@ const Products = () => {
               </div>
               <div className="mt-4 w-full">
                 <button
-                  className="btn btn-primary p-2 w-full text-xs sm:text-sm truncate"
+                  className="btn btn-fourty p-2 w-full text-xs sm:text-sm truncate dark:btn-primary"
                   onClick={() => handleAddToCart(service)}
                 >
                   Agregar al carrito
@@ -158,12 +168,14 @@ const Products = () => {
         <div
           className={`bg-fourty/80 rounded-md p-2 flex items-center justify-center mt-5`}
         >
-          <button className="btn-primary font-bold mx-1 px-3 py-1">Pages</button>
+          <button className="btn-fourty font-bold mx-1 px-3 py-1 dark:btn-primary">
+            Pages
+          </button>
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button
               key={page}
               onClick={() => handlePageChange(page)}
-              className={`mx-1 px-3 py-1 rounded btn-primary ${
+              className={`mx-1 px-3 py-1  rounded btn-fourty dark:btn-primary font-bold ${
                 page === currentPage ? "active" : ""
               }`}
             >

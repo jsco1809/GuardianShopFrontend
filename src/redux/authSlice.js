@@ -1,20 +1,34 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
-const persistedAuthState = localStorage.getItem('isAuthenticated') === 'true';
+const persistedToken = localStorage.getItem("authToken");
+const persistedRole = localStorage.getItem("authRole");
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: {
-    isAuthenticated: persistedAuthState,
+    isAuthenticated: !!persistedToken,
+    role: persistedRole || null,
   },
   reducers: {
-    login: (state) => {
+    login: (state, action) => {
       state.isAuthenticated = true;
-      localStorage.setItem('isAuthenticated', 'true');
+      state.role = action.payload.role;
+
+      if (action.payload.token) {
+        localStorage.setItem("authToken", action.payload.token);
+      }
+
+      if (action.payload.role) {
+        localStorage.setItem("authRole", action.payload.role);
+      }
     },
+
     logout: (state) => {
       state.isAuthenticated = false;
-      localStorage.setItem('isAuthenticated', 'false');
+      state.role = null;
+
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("authRole");
     },
   },
 });

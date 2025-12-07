@@ -1,0 +1,39 @@
+<svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFD93B"/>
+      <stop offset="50%" stop-color="#F9C423"/>
+      <stop offset="100%" stop-color="#F7A41D"/>
+    </radialGradient>
+    <radialGradient id="sunHalo" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="rgba(255, 215, 0, 0.6)"/>
+      <stop offset="100%" stop-color="rgba(255, 170, 0, 0)"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Halo externo (glow suave) -->
+  <circle cx="12" cy="12" r="10" fill="url(#sunHalo)" />
+
+  <!-- Sol principal -->
+  <circle cx="12" cy="12" r="5" fill="url(#sunGlow)" />
+
+  <!-- Rayos -->
+  <g stroke="#FBBF24" stroke-width="1.6" stroke-linecap="round">
+    <line x1="12" y1="1" x2="12" y2="4"/>
+    <line x1="12" y1="20" x2="12" y2="23"/>
+
+    <line x1="1" y1="12" x2="4" y2="12"/>
+    <line x1="20" y1="12" x2="23" y2="12"/>
+
+    <line x1="4.2" y1="4.2" x2="6.4" y2="6.4"/>
+    <line x1="17.6" y1="17.6" x2="19.8" y2="19.8"/>
+
+    <line x1="4.2" y1="19.8" x2="6.4" y2="17.6"/>
+    <line x1="17.6" y1="6.4" x2="19.8" y2="4.2"/>
+  </g>
+</svg>

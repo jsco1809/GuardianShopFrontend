@@ -88,9 +88,9 @@ const Cart = () => {
   };
 
   return (
-    <div className='flex flex-wrap justify-center place-content-center h-full'>
+    <div className='flex flex-wrap justify-center place-content-center h-full dark:bg-darkBg dark:text-dark-text'>
       <div className='w-full text-center mb-5'>
-        <h1 className='btn-primary max-w-[150px] mx-auto p-2 mb-5'>
+        <h1 className='btn-fourty max-w-[150px] mx-auto p-2 mb-5 dark:btn-fourty'>
           Mi Carrito
         </h1>
         {error && <p className='text-red-500'>{error}</p>}
@@ -113,13 +113,13 @@ const Cart = () => {
                   alt={item.name || 'Producto'}
                   className="w-full object-cover h-49"
                 />
-                <h1 className='font-bold mt-2'>{item.name || "Producto sin título"}</h1>
-                <p className="font-semibold">Precio: ${totalPrice}</p>
-                <p>Cantidad: {quantity}</p>
+                <h1 className='font-bold mt-2 text-black dark:text-darkText'>{item.name || "Producto sin título"}</h1>
+                <p className="font-semibold text-black dark:text-darkText">Precio: ${totalPrice}</p>
+                <p className='text-black dark:text-darkText font-bold'>Cantidad: {quantity}</p>
                 <div className='flex items-center space-x-2'>
                   <button
                     onClick={() => handleQuantityChange(item, quantity - 1)}
-                    className='btn-primary'
+                    className='btn-fourty dark:btn-primary'
                     disabled={quantity <= 0}
                   >
                     <FontAwesomeIcon icon={faMinus} />
@@ -127,13 +127,13 @@ const Cart = () => {
                   <span>{quantity}</span>
                   <button
                     onClick={() => handleQuantityChange(item, quantity + 1)}
-                    className='btn-primary'
+                    className='btn-fourty dark:btn-primary'
                   >
                     <FontAwesomeIcon icon={faPlus} />
                   </button>
                   <button
                     onClick={() => handleRemoveItem(item)}
-                    className='btn-primary icon-'
+                    className='btn-fourty dark:btn-primary'
                   >
                     <FontAwesomeIcon icon={faTrash} />
                   </button>
@@ -145,14 +145,14 @@ const Cart = () => {
       )}
 
       <div className={`bg-fourty/50 rounded-md p-2 flex items-center justify-center mt-5`}>
-        <button className='btn-primary font-bold mx-1 px-3 py-1'>
+        <button className='btn-fourty font-bold mx-1 px-3 py-1'>
           Pages
         </button>
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page, index) => (
           <button
             key={index}
             onClick={() => handlePageChange(page)}
-            className={`mx-1 px-3 py-1 rounded btn-primary ${page === currentPage ? 'active' : ''}`}
+            className={`mx-1 px-3 py-1 rounded font-bold btn-fourty ${page === currentPage ? 'active' : ''}`}
           >
             {page}
           </button>

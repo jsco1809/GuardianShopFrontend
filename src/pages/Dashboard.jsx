@@ -4,10 +4,10 @@ import Maps from '../components/Cards/Maps'
 
 const Dashboard = () => {
   return (
-    <div className=' w-full h-[2000px] flex-col anyBox justify-center '>
+    <div className=' w-full h-[2000px] bg-gray-100 flex-col anyBox justify-center dark:bg-darkBg dark:text-white'>
       <CardHome className="mb-10"/>
-     <Average/>
-     <Maps/>
+      <Average/>
+      <Maps/>
     </div>
   )
 }

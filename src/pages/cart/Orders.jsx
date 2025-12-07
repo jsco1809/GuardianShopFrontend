@@ -5,7 +5,7 @@ const Orders = () => {
   return (
     <div className="flex flex-wrap justify-center place-content-center h-full">
       <div className="w-[330px] h-[658px] mb-5 justify-center place-content-center text-sm anyBox">
-        <h1 className="btn-primary w-[215px] h-[48px] justify-center place-content-center p-2 mb-5">
+        <h1 className="btn-fourty w-[215px] h-[48px] justify-center place-content-center p-2 mb-5">
           Tus Pedidos ...
         </h1>
         <div className="bg-fourty mb-5 w-[215px] h-[40px] rounded-sm place-content-center p-2">
@@ -33,7 +33,7 @@ const Orders = () => {
           <h1 className="font-bold ml-2">Title description</h1>
           <p className="ml-2 p-1 font-semibold">Precio: ${"No disponible"}</p>
           <div className="text-sm flex flex-wrap space-x-1 p-1">
-            <Link className="btn-primary p-2 mb-5">Details...</Link>
+            <Link className="btn-fourty p-2 mb-5">Details...</Link>
           </div>
         </div>
       </div>

@@ -65,7 +65,7 @@ const Average = () => {
         <h1 className="ml-5 mt-5">Current MR...</h1>
         <p className="text-4xl ml-5">{count}<span>K</span></p>
       </div>
-      <div className="mr-5 mb-5 bg-white w-[200px] h-[100px] md:w-[297px] md:h-[115px] rounded-md font-black">
+      <div className="mr-5 mb-5 bg-darkBg text-darkText w-[200px] h-[100px] md:w-[297px] md:h-[115px] rounded-md font-black dark:bg-white dark:text-black">
         <h1 className="ml-5 mt-5">Clients...</h1>
         <p className="text-4xl ml-5"><span>$</span>{count2}</p>
       </div>
@@ -73,7 +73,7 @@ const Average = () => {
         <h1 className="ml-5 mt-5">Average...</h1>
         <p className="text-4xl ml-5">{count3}<span>%</span></p>
       </div>
-      <div className="mr-5 mb-5 bg-white w-[200px] h-[100px] md:w-[297px] md:h-[115px] rounded-md font-black">
+      <div className="mr-5 mb-5 bg-darkBg text-darkText w-[200px] h-[100px] md:w-[297px] md:h-[115px] rounded-md font-black dark:bg-white dark:text-black">
         <h1 className="ml-5 mt-5">Second Average...</h1>
         <p className="text-4xl ml-5">{count4}<span>%</span></p>
       </div>

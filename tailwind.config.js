@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: "class",
   content: [
     './index.html',
     './src/**/*.{js,ts,jsx,tsx}', 
@@ -21,7 +22,11 @@ export default {
         secondary: "#F2F2F2",
         tertiary: "#6A9294",
         fourty: "#FEE092",
-        gray: "#D9D9D9"
+        fifthy: "#2C4A4C",
+        gray: "#D9D9D9",
+        darkBg: "#2d3436",
+        darkText: "#F1F1F1",
+        darkCard: "#1A1A1A",
       },     
     },
     screens: {

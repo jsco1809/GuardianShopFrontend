@@ -60,7 +60,7 @@ export const fetchProducts = createAsyncThunk(
 
       return { products: productsWithDerivatives, totalPages };
     } catch (error) {
-        console.log("Error fetching products",error)
+        console.error("Error fetching products",error)
       return rejectWithValue('Error fetching products');
     }
   }

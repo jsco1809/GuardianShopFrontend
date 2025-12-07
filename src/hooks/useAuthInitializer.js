@@ -8,24 +8,30 @@ const useAuthInitializer = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    if (token) {
-      try {
-        const decodedToken = jwtDecode(token);
-        const currentTime = Date.now() / 1000;
-        if (decodedToken.exp >= currentTime) {
-          dispatch(login());
-        } else {
-          dispatch(logout());
-          localStorage.removeItem("authToken");
-        }
-      } catch (error) {
-        console.error("Error decoding token:", error);
+
+    if (!token) {
+      dispatch(logout());
+      return;
+    }
+
+    try {
+      const decoded = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+
+      if (decoded.exp < currentTime) {
         dispatch(logout());
-        localStorage.removeItem("authToken");
+        return;
       }
-    } else {
+
+      const role = decoded.roles?.[0] || decoded.role || null;
+
+      dispatch(login({ role, token }));  // NO guardar aquí en localStorage
+
+    } catch (error) {
+      console.error("Error decoding token:", error);
       dispatch(logout());
     }
+
   }, [dispatch]);
 };
 

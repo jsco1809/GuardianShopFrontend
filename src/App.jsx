@@ -6,6 +6,12 @@ import Register from "./pages/auth/Register";
 import Dashboard from "./pages/Dashboard";
 import Orders from "./pages/cart/Orders";
 import Products from "./pages/services/Products";
+import ServiceForm from "./pages/services/ServiceForm";
+import ServiceUpdate from "./pages/services/ServiceUpdate";
+import ServiceList from "./pages/services/ServiceList";
+import CategoryCreateForm from "./pages/services/CategoryCreateForm";
+import CategoryUpdateForm from "./pages/services/CategoryUpdateForm";
+import CategoryList from "./pages/services/CategoryList";
 import Contact from "./components/Contact";
 import ProductDetails from "./pages/services/ProductDetails";
 import ChangePassword from "./pages/auth/ChangePassword";
@@ -20,24 +26,36 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
-        {/* Rutas que no requieren autenticación */}
-        <Route index element={<Dashboard />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/productDetails/:id" element={<ProductDetails />} />
 
-        {/* Rutas que requieren autenticación */}
-        <Route element={<PrivateRoute />}>
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/cart" element={<Cart />} />
-        </Route>
+  {/* Rutas públicas */}
+  <Route index element={<Dashboard />} />
+  <Route path="products" element={<Products />} />
+  <Route path="contact" element={<Contact />} />
+  <Route path="productDetails/:id" element={<ProductDetails />} />
 
-        {/* Rutas de autenticación */}
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/reset-Password" element={<ChangePassword />} />
-        <Route path="/change-password" element={<ChangePassword />} />
-      </Route>
+  {/* Rutas protegidas para cualquier usuario */}
+  <Route element={<PrivateRoute />}>
+    <Route path="orders" element={<Orders />} />
+    <Route path="cart" element={<Cart />} />
+  </Route>
+
+  {/* Rutas SOLO para role ADMIN */}
+  <Route element={<PrivateRoute allowedRoles={["ADMIN"]} />}>
+    <Route path="services/new" element={<ServiceForm />} />
+    <Route path="services/edit" element={<ServiceUpdate />} />
+    <Route path="services/list" element={<ServiceList />} />
+    <Route path="categories/new" element={<CategoryCreateForm />} />
+    <Route path="categories/edit" element={<CategoryUpdateForm />} />
+    <Route path="categories/list" element={<CategoryList />} />
+  </Route>
+
+  {/* Auth */}
+  <Route path="register" element={<Register />} />
+  <Route path="login" element={<Login />} />
+  <Route path="reset-password" element={<ChangePassword />} />
+  <Route path="change-password" element={<ChangePassword />} />
+</Route>
+
     )
   );
 

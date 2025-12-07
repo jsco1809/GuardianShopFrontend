@@ -70,7 +70,7 @@ const ChangePassword = () => {
     };
 
     return (
-        <div className='container mx-auto mt-5 md:justify-center xl:top-0 md:top-2 sm:top-10 m-8 anyBox'>
+        <div className="w-full h-screen bg-gray-100 dark:bg-darkBg flex justify-center items-start p-8 anyBox relative">
             <ToastContainer />
             {message && <p>{message}</p>}
             {!tokenFromQuery ? (
@@ -85,12 +85,12 @@ const ChangePassword = () => {
                         placeholder="Enter your email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className='input-primary mb-2'
+                        className='input-primary mb-2 bg-white dark:bg-darkBg dark:text-white placeholder:text-black dark:placeholder:text-white'
                         required
                     />
                     <button
                         type="submit"
-                        className='w-[193px] h-[43px] md:w-[360px] md:h-[48px] btn-primary'
+                        className='w-[193px] h-[43px] md:w-[360px] md:h-[48px] btn-fourty'
                     >
                         Send Reset Email
                     </button>
@@ -124,7 +124,7 @@ const ChangePassword = () => {
                     {!passwordsMatch && <p style={{ color: 'red' }}>Passwords do not match!</p>}
                     <button
                         type="submit"
-                        className='w-[193px] h-[43px] md:w-[360px] md:h-[48px] btn-primary'
+                        className='w-[193px] h-[43px] md:w-[360px] md:h-[48px] btn-fourty'
                     >
                         Change Password
                     </button>

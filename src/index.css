@@ -1,63 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-    body {
-        @apply font-custom bg-secondary text-lg text-primary         
-}
+  body {
+    @apply font-custom bg-secondary text-lg text-primary;
+  }
 }
 
 @layer utilities {
+  .navbar {
+  }
 
-    .navbar{
+  .btn-primary {
+    @apply rounded-md text-darkText bg-fifthy;
+  }
 
-    }
+  .btn-secondary {
+    @apply underline underline-offset-8 items-center;
+  }
 
-    .btn-primary {
-        @apply rounded-md text-white bg-tertiary
-    }
+  .btn-tertiary {
+    @apply rounded-md bg-secondary text-black w-[100px] h-[26px] justify-center place-content-center p-1;
+  }
 
-    .btn-secondary {
-       @apply underline underline-offset-8 items-center
-    }
+  .btn-fourty {
+    @apply rounded-md text-black bg-tertiary;
+  }
 
-    .btn-tertiary {
-        @apply rounded-md bg-secondary text-black w-[100px] h-[26px] justify-center place-content-center p-1
-    }
+  .input-primary {
+  @apply 
+    text-primary
+    mb-2 p-1 
+    md:mb-5 
+    w-[193px] h-[43px]
+    md:w-[360px] md:h-[48px]
+    rounded-md
+    bg-white dark:bg-darkBg
+    text-black dark:text-white
+    placeholder:text-black dark:placeholder:text-white;
+}
 
-    .input-primary {
-        @apply text-primary mb-2 p-1 md:mb-5 w-[193px] h-[43px] md:w-[360px] md:h-[48px] rounded-md
-    }
 
-    .selected-primary {
-        @apply text-primary mb-2 p-1 md:mb-5 mr-2 bg-fourty bg-opacity-50 w-[193px] h-[43px] md:w-[360px] md:h-[48px] rounded-md
-    }
-    
-    .icon-black {
-        color: black !important; /* Asegura que este estilo prevalezca */
-      }
-    
-      .icon-red {
-        color: #ef4444 !important; /* Usa Tailwind o un color personalizado */
-      }
-      
+  .selected-primary {
+    @apply text-primary mb-2 p-1 md:mb-5 mr-2 bg-fourty bg-opacity-50 w-[193px] h-[43px] md:w-[360px] md:h-[48px] rounded-md;
+  }
+
+  .icon-black {
+    color: black !important; /* Asegura que este estilo prevalezca */
+  }
+
+  .icon-red {
+    color: #ef4444 !important; /* Usa Tailwind o un color personalizado */
+  }
 }
 
 /* css puro */
 
-.anyBox{
-    display: grid;    
-    align-items: center;    
-    }
-
-
-.bg-image-home {
-    background-image: url('')
+.anyBox {
+  display: grid;
+  align-items: center;
 }
 
-
-
+.bg-image-home {
+  background-image: url("");
+}

@@ -33,7 +33,6 @@ const useContactForm = () => {
                 status: 1,
             };
             const base64Payload = btoa(JSON.stringify(payload));
-            console.log('Payload codificado en Base64:', base64Payload);
             const response = await axios.post(`${Global.url}form/addRecord`, base64Payload, {
                 headers: {
                     'Content-Type': 'text/plain',
@@ -44,10 +43,8 @@ const useContactForm = () => {
                 throw new Error('Respuesta del servidor vacía.');
             }
 
-            console.log('Respuesta del servidor (Base64):', base64Response);
             const decodedString = atob(base64Response);
             const parsedResponse = JSON.parse(decodedString);
-            console.log('Respuesta parseada:', parsedResponse);
             if (parsedResponse.codeResponse === 1) {
                 setResponseMessage(parsedResponse.messageResponse || 'Form submitted successfully!');
                 navigate("/products", { state: { showSuccess: true } });

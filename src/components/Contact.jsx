@@ -40,7 +40,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
+    <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-darkBg">
       <div className="flex justify-center items-center flex-grow">
         <form
           onSubmit={handleSubmit}
@@ -54,7 +54,7 @@ const Contact = () => {
               placeholder="Nombre"
               value={formData.name}
               onChange={handleInputChange}
-              className="w-full h-[48px] px-3"
+              className="w-full h-[48px] px-3 bg-white dark:bg-darkBg dark:text-white placeholder:text-black dark:placeholder:text-white"
               required
             />
             <input
@@ -63,7 +63,7 @@ const Contact = () => {
               placeholder="Apellido"
               value={formData.lastName}
               onChange={handleInputChange}
-              className="w-full h-[48px] px-3"
+              className="w-full h-[48px] px-3  bg-white dark:bg-darkBg dark:text-white placeholder:text-black dark:placeholder:text-white"
               required
             />
             <input
@@ -72,7 +72,7 @@ const Contact = () => {
               placeholder="Teléfono"
               value={formData.phone}
               onChange={handleInputChange}
-              className="w-full h-[48px] px-3"
+              className="w-full h-[48px] px-3  bg-white dark:bg-darkBg dark:text-white placeholder:text-black dark:placeholder:text-white"
               required
             />
             <input
@@ -81,7 +81,7 @@ const Contact = () => {
               placeholder="Email"
               value={formData.email}
               onChange={handleInputChange}
-              className="w-full h-[48px] px-3"
+              className="w-full h-[48px] px-3  bg-white dark:bg-darkBg dark:text-white placeholder:text-black dark:placeholder:text-white"
               required
             />
             <textarea
@@ -89,12 +89,12 @@ const Contact = () => {
               placeholder="Mensaje"
               value={formData.message}
               onChange={handleInputChange}
-              className="w-full h-[100px] px-3"
+              className="w-full h-[100px] px-3  bg-white dark:bg-darkBg dark:text-white placeholder:text-black dark:placeholder:text-white"
               required
             />
             <button
               type="submit"
-              className="w-full h-[48px] btn-primary text-sm"
+              className="w-full h-[48px] btn-fourty text-sm  bg-white placeholder:text-black dark:placeholder:text-white"
               disabled={loading}
             >
               {loading ? "Enviando..." : "Enviar"}
